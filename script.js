@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Use window.innerWidth to get the viewport width of the entire website
         const viewportWidth = window.innerWidth;
         const buffer = viewportWidth * 0.0020;
-        const requiredTranslation = (totalContentWidth + viewportWidth + buffer) / 1.9;
+        const requiredTranslation = (totalContentWidth + viewportWidth + buffer) / 2.5;
         const translatePercentage = ((-requiredTranslation / viewportWidth) * 100);
 
         // Set the CSS variable to control the animation
