@@ -1,30 +1,37 @@
-document.addEventListener('DOMContentLoaded', function() {
+function updateAnimation() {
     const scrollingContent = document.querySelector('.scrolling-content');
-
-    function updateAnimation() {
-        let totalContentWidth = 0;
-
-        // Calculate the total width of all child elements
-        Array.from(scrollingContent.children).forEach(child => {
-            const childWidth = child.getBoundingClientRect().width;
-            totalContentWidth += childWidth;
-        });
-
-        // Use window.innerWidth to get the viewport width of the entire website
-        const viewportWidth = window.innerWidth;
-        const buffer = viewportWidth * 0.0020;
-         const requiredTranslation = (totalContentWidth + viewportWidth + buffer) / 1.991;
-        const translatePercentage = ((-requiredTranslation / viewportWidth) * 100);
-
-        // Set the CSS variable to control the animation
-        document.documentElement.style.setProperty('--translateX-percentage', `${translatePercentage}%`);
-        restartAnimation();
+    const totalWidth = scrollingContent.scrollWidth * 3.074;
+    const viewportWidth = window.innerWidth;
+    const keyframes = `
+      @keyframes slide {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-${totalWidth - viewportWidth}px);
+        }
+      }
+    `;
+    let styleSheet = document.getElementById('dynamic-animation-styles');
+      if (!styleSheet) {
+        styleSheet = document.createElement('style');
+        styleSheet.type = 'text/css';
+        styleSheet.id = 'dynamic-animation-styles';
+        document.head.appendChild(styleSheet);
+      }
+      
+      // Inject the new keyframes into the stylesheet
+      styleSheet.innerText = keyframes;
+      
+      // Re-apply the animation style to make it take effect
+      scrollingContent.style.animation = 'none'; // Reset the animation
+      requestAnimationFrame(() => {
+        scrollingContent.style.animation = '10s slide infinite linear'; // Restart the animation
+      });
     }
 
-    function restartAnimation() {
-        scrollingContent.classList.remove('animate-slide');
-    }
+    // Event listener to handle page load
+        document.addEventListener("DOMContentLoaded", updateAnimation);
 
-    updateAnimation(); // Initialize the animation
-    window.addEventListener('resize', updateAnimation); // Adjust on window resize
-});
+        // Event listener to handle window resize
+        window.onresize = updateAnimation;
