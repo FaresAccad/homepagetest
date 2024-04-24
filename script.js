@@ -1,31 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
     const scrollingContent = document.querySelector('.scrolling-content');
-    const wrapper = document.querySelector('.scrolling-wrapper');
 
     function updateAnimation() {
         let totalContentWidth = 0;
 
+        // Calculate the total width of all child elements
         Array.from(scrollingContent.children).forEach(child => {
             const childWidth = child.getBoundingClientRect().width;
             totalContentWidth += childWidth;
         });
 
-        const wrapperWidth = wrapper.getBoundingClientRect().width;
-        const buffer = wrapperWidth * 0.0020;
-        const requiredTranslation = (totalContentWidth / 2) + wrapperWidth + buffer;
-        const translatePercentage = ((-requiredTranslation / wrapperWidth) * 100);
+        // Use window.innerWidth to get the viewport width of the entire website
+        const viewportWidth = window.innerWidth;
+        const buffer = viewportWidth * 0.0020;
+        const requiredTranslation = (totalContentWidth / 2) + viewportWidth + buffer;
+        const translatePercentage = ((-requiredTranslation / viewportWidth) * 100);
 
+        // Set the CSS variable to control the animation
         document.documentElement.style.setProperty('--translateX-percentage', `${translatePercentage}%`);
         restartAnimation();
     }
 
     function restartAnimation() {
         scrollingContent.classList.remove('animate-slide');
-        setTimeout(() => {
-            scrollingContent.classList.add('animate-slide');
-        }, 50); // Wait 50 milliseconds before restarting the animation
     }
 
-    updateAnimation(); // Call on initial load
+    updateAnimation(); // Initialize the animation
     window.addEventListener('resize', updateAnimation); // Adjust on window resize
-    });
+});
