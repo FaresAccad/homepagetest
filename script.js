@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const buffer = wrapperWidth * 0.0020;
         const requiredTranslation = (totalContentWidth / 2) + wrapperWidth + buffer;
-        const translatePercentage = ((-requiredTranslation / wrapperWidth) * 100);
+        const translatePercentage = ((-requiredTranslation / wrapperWidth) * 100) / 2;
 
         document.documentElement.style.setProperty('--translateX-percentage', `${translatePercentage}%`);
     }
