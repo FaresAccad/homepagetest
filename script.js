@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         const buffer = wrapperWidth * 0.0020;
-        const requiredTranslation = (totalContentWidth / 2) + wrapperWidth + buffer;
-        const translatePercentage = ((-requiredTranslation / wrapperWidth) * 100) / 2;
+        const requiredTranslation = (totalContentWidth / 4) + wrapperWidth + buffer;
+        const translatePercentage = ((-requiredTranslation / wrapperWidth) * 100);
 
         document.documentElement.style.setProperty('--translateX-percentage', `${translatePercentage}%`);
     }
