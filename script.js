@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const translatePercentage = ((-requiredTranslation / viewportWidth) * 100);
 
         // Set the CSS variable to control the animation
-        document.documentElement.style.setProperty('--translateX-percentage', `${translatePercentage}%`);
+        document.documentElement.style.setProperty('--translateX-percentage', `400%`);
         restartAnimation();
     }
 
